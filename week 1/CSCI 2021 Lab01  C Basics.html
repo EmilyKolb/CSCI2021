@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>CSCI 2021 Lab01: C Basics</title>
+<!-- 2018-01-18 Thu 14:13 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Chris Kauffman" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1" />
+<style type="text/css">
+@media screen {
+:root {
+--heading-bg-color:#e8c62e;
+--heading-fg-color:#7a0019;
+}
+html {
+font-family: serif;
+text-align: justify;
+}
+pre.src, pre.example {
+overflow-x: scroll;
+}
+/* Merge subtitle area with title area */
+.subtitle {
+text-align: center;
+margin-top: -2em;
+padding-top: 1em;
+padding-bottom: 0.1em;
+}
+.title, .subtitle {
+color: var(--heading-fg-color);
+background-color: var(--heading-bg-color);
+}
+/* Section borders, left section header style */
+div.outline-2, #table-of-contents {
+background-color: rgb(250,250,250);
+border: 0.75em solid var(--heading-bg-color);
+border-top: 0em;
+padding: 0em .5em .5em .5em; /* top right bottom left */
+margin: 1em 0em 1em 0em; /* top right bottom left */
+}
+div.outline-2 > h2, #table-of-contents > h2 {
+background-color: var(--heading-bg-color);
+color: var(--heading-fg-color);
+font-variant: small-caps;
+padding: 0em 0em 0em .5em; /* top right bottom left */
+margin: 0em -.5em 0em -.75em; /* top right bottom left */
+text-align: left;
+}
+blockquote {
+font-style: italic;
+}
+td, th {
+padding-top: 2px;
+padding-bottom: 2px;
+}
+body {
+background-color: #EEE;
+}
+pre {
+}
+#content, #preamble, #postamble {
+margin-left:300px;
+}
+.tag {
+background-color: inherit; font-family: inherit;
+padding: inherit; font-size: 80%; font-weight: inherit;
+text-transform: uppercase;
+}
+.figure p { text-align: inherit; }
+figure-number { font-style: italic; }
+#table-of-contents {
+text-align: left;
+position: fixed;
+left: 0;
+margin: 0 auto;
+padding: 0;
+width: 300px;
+top: 0;
+height: 100%;
+border: 0;
+display: block;
+}
+#text-table-of-contents {
+overflow-y: scroll;
+height: 100%;
+}
+#text-table-of-contents ul {
+padding-left: 1em;
+margin-left: 0.5em;
+}
+#table-of-contents > h2 {
+padding: 0.1em;
+margin: 0;
+}
+/* adjustments for small screen, toc at top only */
+@media (max-width: 800px) { /* landscape for iphone */
+html {
+-webkit-text-size-adjust: none;  /* prevent scaling of text on mobile */
+}
+body {
+background-color: #EEE;
+width:100%;
+margin:0 auto;
+}
+#content, #preamble, #postamble {
+margin-left:0;
+}
+#table-of-contents {
+position: static;
+left: inherit;
+width:inherit;
+height: auto;
+border-top: 0em;
+padding: 0em .5em .5em .5em; /* top right bottom left */
+margin: 1em 0em 1em 0em; /* top right bottom left */
+border: 0.75em solid #006633;
+}
+div.outline-2, #table-of-contents {
+background-color: rgb(250,250,250);
+border: 0.75em solid var(--heading-bg-color);
+border-top: 0em;
+padding: 0em .5em .5em .5em; /* top right bottom left */
+margin: 1em 0em 1em 0em; /* top right bottom left */
+}
+div.outline-2 > h2, #table-of-contents > h2 {
+background-color: var(--heading-bg-color);
+color: var(--heading-fg-color);
+font-variant: small-caps;
+padding: 0em 0em 0em .5em; /* top right bottom left */
+margin: 0em -.5em 0em -.75em; /* top right bottom left */
+text-align: left;
+}
+#text-table-of-contents {
+overflow-y: visible;
+height: inherit;
+}
+#text-table-of-contents ul {
+padding-left: 1em;
+margin-left: 0.5em;
+}
+}
+.linenr { font-size: xx-small; }
+}
+@media print {
+html {
+font-family: serif;
+font-size: 10pt;
+text-align: justify;
+.linenr { font-size: xx-small; }
+}
+}
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<i>Last Updated: 2018-01-18 Thu 14:13</i>
+</div>
+<div id="content">
+<h1 class="title">CSCI 2021 Lab01: C Basics</h1>
+<ul class="org-ul">
+<li><b>Due: 11:59pm Wed 1/24/2018</b>
+</li>
+<li><i>Approximately 0.83% of total grade</i>
+</li>
+<li>Submit to <a href="https://canvas.umn.edu/"><b>Canvas</b></a>
+</li>
+<li>Lab exercises are open resource/open collaboration. You must submit
+your own work but you may freely discuss lab topics with other
+members of the class.
+</li>
+</ul>
+
+<div id="outline-container-sec-0-0-1" class="outline-4">
+<h4 id="sec-0-0-1">CODE DISTRIBUTION: <a href="lab01-code.zip">lab01-code.zip</a></h4>
+<div class="outline-text-4" id="text-0-0-1">
+<ul class="org-ul">
+<li>Download the code distribution every lab 
+</li>
+<li>See further setup instructions below
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-0-0-2" class="outline-4">
+<h4 id="sec-0-0-2">CHANGELOG: Empty</h4>
+<div class="outline-text-4" id="text-0-0-2">
+<dl class="org-dl">
+<dt> Thu Jan 18 14:11:52 CST 2018 </dt><dd>     Some of the compilation lines for the Collatz problem had errors
+involving an extra tilde <code>~</code> character which should not be
+present. The tildes have been removed so that the lines should
+yield different compile errors to examine.
+</dd>
+</dl>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Rationale</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Associated Reading / Preparation</a></li>
+<li><a href="#sec-1-2">1.2. Grading Policy</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Codepack</a></li>
+<li><a href="#sec-3">3. Accessing Unix Environments for C Code</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Vole for Graphical Login: </a></li>
+<li><a href="#sec-3-2">3.2. SSH to Lab Machines</a></li>
+<li><a href="#sec-3-3">3.3. Physical Access</a></li>
+<li><a href="#sec-3-4">3.4. Your own machine</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Basic Navigation</a></li>
+<li><a href="#sec-5">5. Questions</a></li>
+<li><a href="#sec-6">6. What to Understand</a></li>
+<li><a href="#sec-7">7. Getting Credit: Check-off and Turn-in</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Rationale</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+C programming is as close as most programmers get to the bare metal of
+the computer systems and is an essential tool in any programmers
+toolkit.  Completing this lab will cover principles in C of
+editing, compilation, running, basic data types, functions, and
+control. 
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Associated Reading / Preparation</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Prior programming experience is presumed: students not familiar with
+variable types, loops, conditionals, functions, etc. should review
+them quickly.
+</p>
+
+<p>
+Basic familiarity with the Unix command line environment such as can
+be found on lab machines is also presumed.  If you have never worked
+in this type of environment, make sure to do some self-study.
+</p>
+
+<p>
+Study any good C resource/tutorial particularly those listed on the course
+web site or the optional text and C programming:
+</p>
+
+<p>
+<i>C Programming Language</i> Second Edition by Brian Kernighan and
+Dennis M. Ritchie, Prentice Hall 1988
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Grading Policy</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Check-off 30%: Demonstrate to a TA that a student understands
+answers to questions. This must be done in person in groups of one
+or two. Check-offs can happen during the lab period of during a TA
+office hour.
+</li>
+<li>Submit 70%: Submit required files according to the lab
+instruction. This can be done at any time and from anywhere with a
+network connection. Submitting does not require attending lab. All
+students must submit files even if they were checked off in a group
+during lab.
+</li>
+</ul>
+<p>
+See the <a href="http://www-users.cs.umn.edu/~kauffman/2021/syllabus.html#lab-grading-policy">full policy in the syllabus</a>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Codepack</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The codepack for the lab contains the following files:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">File</th>
+<th scope="col" class="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left"><code>QUESTIONS.txt</code></td>
+<td class="left">Questions to answer</td>
+</tr>
+
+<tr>
+<td class="left"><code>age.c</code></td>
+<td class="left">C file for Problem 1</td>
+</tr>
+
+<tr>
+<td class="left"><code>collatz_main.c</code></td>
+<td class="left">C file for Problem 2</td>
+</tr>
+
+<tr>
+<td class="left"><code>collatz_funcs.c</code></td>
+<td class="left">C file for Problem 2</td>
+</tr>
+
+<tr>
+<td class="left"><code>collatz.h</code></td>
+<td class="left">C file for Problem 2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Accessing Unix Environments for C Code</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To answer the questions for this lab, you will need to be able to
+compile and run C programs. A Unix environment is the best place to do
+this and the sections below describe ways to access Unix environments.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Vole for Graphical Login: <a href="http://vole.cse.umn.edu">http://vole.cse.umn.edu</a></h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+CSE Labs provides a slick graphical login to Linux machines through a
+web browser via its VOLE system. Navigate to <a href="http://vole.cse.umn.edu">http://vole.cse.umn.edu</a>,
+enter your login credentials, and initial a graphical login.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> SSH to Lab Machines</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+CSE Labs allows you to remotely log into a variety of machines using
+the <b>secure shell</b> or SSH for short.  For this you will need an SSH
+tool
+</p>
+<ul class="org-ul">
+<li>Mac: open a terminal and use the <code>ssh</code> command
+</li>
+<li>Windows: examine <a href="https://cseit.umn.edu/knowledge-help/choose-ssh-tool">these choices</a> of which <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a> is a classic favorite.
+</li>
+</ul>
+
+<p>
+Select a machine name from the <a href="https://cseit.umn.edu/computer-classrooms/cse-labs-unix-machine-listings">big list of machines</a> and log in. My
+go-to is
+</p>
+<pre class="example">
+apollo.cselabs.umn.edu
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Physical Access</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+You can sit down at a variety of machines managed by CSE Labs which
+are listed here: <a href="https://cseit.umn.edu/computer-classrooms">https://cseit.umn.edu/computer-classrooms</a>
+</p>
+
+<p>
+Be mindful of the times these labs are open and which labs have Unix
+machines listed as Ubuntu 16.04. Keller 4-250 is likely the most
+popular. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Your own machine</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+It is fun and profitable to set up your own machine to compile code
+for the class.
+</p>
+</div>
+
+<div id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1">Virtual Machines</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+Running <i>Virtual Machine</i> software allows you to have a "guest"
+operating system, likely free Linux, which has separate software from
+the "host" OS.  My go-to for a long time was running <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> with a
+Linux distribution as the guest OS.
+</p>
+
+<p>
+In almost all cases, compiling and running code on a Linux VM (virtual
+machine) will behave identically to a "native" Linux.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2">Mac OSX</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+By default there may be a program called <code>gcc</code> on Mac OSX but it is
+likely NOT the compiler we'll use by default: see the <a href="https://stackoverflow.com/questions/19535422/os-x-10-9-gcc-links-to-clang">following
+discussion</a> which also suggests making use of <a href="https://brew.sh/">HomeBrew</a> to manage free
+software on Mac OSX such as a "real" <code>gcc</code>.
+</p>
+
+<p>
+NOTE: Assembly produced by <code>gcc</code> will target the Mac OSX architecture
+and is not likely to work on lab Linux machines where we will
+grade. Make sure to verify your code works in those environments as
+well.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4-3" class="outline-4">
+<h4 id="sec-3-4-3">Windows</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<p>
+Windows does not have Unix tools by default but the venerable <a href="https://www.cygwin.com/">Cygwin</a>
+project provides a Unix-like environment including <code>gcc</code> and
+associated tools.  
+</p>
+
+<p>
+According to recent news, Windows also has <a href="https://www.microsoft.com/en-us/store/p/ubuntu/9nblggh4msv6">Apps that emulate Linux
+distributions</a> as well and may be useful for local development.
+</p>
+
+<p>
+NOTE: Assembly produced by <code>gcc</code> will target the Windows architecture
+and is not likely to work on lab Linux machines where we will
+grade. Make sure to verify your code works in those environments as
+well.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Basic Navigation</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+On logging into the machine you will work on, you will need to make
+sure that you get the codepack linked at the top associated with the
+lab and unzip it which will create a directory called <code>lab01-code</code>
+with C files for you to analyze. To compile and run these, open a
+<b>terminal</b> and navigate to the directory <code>lab01-code</code>. This is usually
+done by issuing a series of "change directory" or <code>cd</code> commands as in
+the following brief demo.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">kauffman [~]$ cd csci2021
+
+kauffman [~/csci2021]$ ls
+lecture-stuff/ lab01-code.zip lab01-code/
+
+kauffman [~/csci2021]$ cd lab01-code/
+
+kauffman [~/csci2021/lab01-code]$ ls
+age.c  collatz_funcs.c	collatz.h  collatz_main.c  QUESTIONS.txt
+</pre>
+</div>
+
+<p>
+If you are inexperienced working with a terminal (also called command
+line or <i>shell</i>), then the following tutorial may give you the basics
+to get through most of the course.
+</p>
+
+<p>
+<a href="http://www.ee.surrey.ac.uk/Teaching/Unix/">http://www.ee.surrey.ac.uk/Teaching/Unix/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Questions</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Analyze the files in the provided codepack and answer the questions
+given in <code>QUESTIONS.txt</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">			   __________________
+
+			    LAB 01 QUESTIONS
+			   __________________
+
+
+- Name: (FILL THIS in)
+- NetID: (THE kauf0095 IN kauf0095@umn.edu)
+
+Answer the questions below according to the lab specification. Write
+your answers directly in this text file and submit it to complete the
+lab.
+
+
+PROBLEM 1 `age.c'
+=================
+
+A
+~
+
+  Examine the source code for `age.c'. Compile it using the following
+  invocation of `gcc'
+  ,----
+  | gcc age.c
+  `----
+  This should create the executable `a.out'. Run this program using the
+  invocation.
+  ,----
+  | ./a.out
+  `----
+  Perform several runs of the program with the following values and
+  paste your output in the space below.
+  - Enter 16
+  - Enter 18
+  - Enter 25
+  - Enter 44
+
+
+B
+~
+
+  Analyze the code for `age.c' and describe a flaw in the conditional
+  structure towards the end that prevents the output:
+  ,----
+  | You can vote, drink, and be president.
+  | Try all three at once!
+  `----
+  from being printed.
+
+  Alter the code to fix this bug so that for ages 35 and larger, the
+  above text is printed. Paste your fixed code for the conditional below
+  and test it by recompiling and showing a demo run.
+
+
+C
+~
+
+  Attempt to enter some absurd ages for the age computation.
+  - Enter 5000
+  - Enter -5000
+  Describe anything strange that seems to be happening based your
+  understanding of how basic arithmetic is supposed to work.
+
+  If you happen to know WHY this strangeness is happening, describe it
+  below.  If not, you will find out soon.
+
+
+D
+~
+
+  Describe which function is used to print information to the screen.
+  Describe how it seems to work to substitute values into output and
+  what *format specifier* indicates an integer should be substituted.
+
+
+E
+~
+
+  Describe what function is used to read typed input interactively from
+  a user in the `age.c' program.  Describe anything that seems strange
+  about this function or its arguments.
+
+  We will learn in not long why this bit of strangeness is necessary.
+
+
+PROBLEM 2 Collatz
+=================
+
+A
+~
+
+  Examine and compile the code associated with the collatz
+  program. There are three files associated with this program.
+  - `collatz_funcs.c' which defines two utility functions for computing
+    the Collatz sequence
+  - `collatz_main.c' which defines a `main()' function to compute a
+    Collatz sequence
+  - `collatz.h' header file which declares functions in
+    `collatz_funcs.c' so that they are known to `collatz_main.c'
+
+  To compile the program, use the following invocation of `gcc'
+  ,----
+  | gcc -o collatz collatz_funcs.c collatz_main.c
+  `----
+  This should create the program `collatz' which can be run with
+  ,----
+  | ./collatz
+  `----
+
+  Do so and enter inputs
+  - Starting integer 7
+  - Show output: 1
+
+  Paste the output below.
+
+
+B
+~
+
+  Determine what the "dash-O" option used above for `gcc -o' does. For
+  example, what happens if one runs
+  ,----
+  | gcc -o GLIPGLOP collatz_funcs.c collatz_main.c
+  `----
+  instead.  You may wish to use the `ls' command to list the files in
+  the current directory.
+
+  Describe what happens if you omit this option `-o' when compiling as
+  in
+  ,----
+  | gcc collatz_funcs.c collatz_main.c
+  `----
+
+
+C
+~
+
+  Attempt to compile only the file `collatz_main.c' by doing
+  ,----
+  | gcc -o something collatz_main.c
+  `----
+
+  This should result in an error. Show the output of that error and
+  determine why the compilation fails.
+
+
+D
+~
+
+  Attempt to compile only the file `collatz_funcs.c' by doing
+  ,----
+  | gcc -o something collatz_funcs.c
+  `----
+
+  This should result in an error. Show the output of that error and
+  determine why the compilation fails.
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> What to Understand</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Ensure that you understand
+</p>
+<ul class="org-ul">
+<li>Basic C syntax for functions, conditions, loops
+</li>
+<li>How to compile C programs on the command line with <code>gcc</code> and some
+errors that arise due to compilation mistakes
+</li>
+<li>Some inkling about the limits of binary number representations 
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Getting Credit: Check-off and Turn-in</h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>Check-off your answers with a TA in person during lab or office
+hours.
+</li>
+<li>Submit your completed <code>QUESTIONS.txt</code> file to Canvas under the
+appropriate lab heading. Make sure to paste in any new code and
+answers you were to write at appropriate locations in the file.
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr/> <i> Author: Chris Kauffman (<a href="mailto:kauffman@umn.edu">kauffman@umn.edu</a>) <br/> Date: 2018-01-18 Thu 14:13 <br/> </i>
+</div>
+</body>
+</html>
